@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 581870175578484813}
   - component: {fileID: 581870175578484819}
   - component: {fileID: 581870175578484812}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Paxman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
