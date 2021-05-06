@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     private void SetScale()
     {
         transform.localScale = _movementDirection == Vector2.right
-            ? new Vector3(-1, 1, 1)
-            : Vector3.one;
+            ? new Vector3(-1, 1, 1) // flip sprite across x axis if facing right direction
+            : Vector3.one; // keep sprite scale normal for all other directions
     }
 
     private void SetRotation()
