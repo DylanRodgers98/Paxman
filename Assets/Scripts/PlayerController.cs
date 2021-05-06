@@ -1,18 +1,38 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnPlayerDied;
     [SerializeField] private float movementSpeed;
     private Vector2 _movementDirection = Vector2.left;
     private Vector3 _lastKnownPosition;
     private int _score;
+    private int _lives;
 
-    public void IncreaseScore(int amount)
+    private void OnEnable()
     {
-        _score += amount;
-    } 
+        DotBehaviour.OnDotEaten += IncreaseScore;
+        GhostBehaviour.OnGhostEaten += IncreaseScore;
+        GhostBehaviour.OnGhostTouched += DecrementLives;
+    }
+
+    private void OnDisable()
+    {
+        DotBehaviour.OnDotEaten -= IncreaseScore;
+        GhostBehaviour.OnGhostEaten -= IncreaseScore;
+        GhostBehaviour.OnGhostTouched -= DecrementLives;
+    }
+
+    private void IncreaseScore(int amount) => _score += amount;
+
+    private void DecrementLives()
+    {
+        _lives--;
+        if (_lives == 0) OnPlayerDied?.Invoke();
+    }
 
     private void Move(InputAction.CallbackContext context)
     {
