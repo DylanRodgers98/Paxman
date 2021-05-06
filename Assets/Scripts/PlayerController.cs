@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
     private Vector2 _movementDirection = Vector2.left;
     private Vector3 _lastKnownPosition;
+    private int _score;
+
+    public void IncreaseScore(int amount)
+    {
+        _score += amount;
+    } 
 
     private void Move(InputAction.CallbackContext context)
     {
