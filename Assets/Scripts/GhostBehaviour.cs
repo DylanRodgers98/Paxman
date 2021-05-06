@@ -9,8 +9,8 @@ public class GhostBehaviour : EdibleByPlayer
     public static event Action<int> OnGhostEaten;
     public static event Action OnGhostTouched;
 
-    [SerializeField] private Transform spawnLocationTransform;
-    [SerializeField] private Transform scatterLocationTransform;
+    [SerializeField] private Vector2 spawnLocation;
+    [SerializeField] private Vector2 scatterLocation;
     private GhostMode _ghostMode;
 
     protected override void Eat()
@@ -32,7 +32,7 @@ public class GhostBehaviour : EdibleByPlayer
 
         yield return new WaitForSeconds(RespawnTime);
 
-        transform.position = spawnLocationTransform.position;
+        transform.position = spawnLocation;
         _ghostMode = GhostManager.Instance.PhaseMode;
         gameObject.SetActive(true);
     }
