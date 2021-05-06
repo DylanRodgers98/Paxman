@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7ca2f7ba901d44998a9371334c57ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationTransform: {fileID: 3417050281720816183}
+  teleportDestination: {fileID: 3417050281720816183}
 --- !u!1 &4584326780805169518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +1985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7ca2f7ba901d44998a9371334c57ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationTransform: {fileID: 7225614178382432596}
+  teleportDestination: {fileID: 7225614178382432596}
 --- !u!1 &5638426736169694470
 GameObject:
   m_ObjectHideFlags: 0
