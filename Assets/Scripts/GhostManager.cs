@@ -11,7 +11,7 @@ public class GhostManager : MonoBehaviour
     [SerializeField] private int baseScoreOnEaten = 200;
     [SerializeField] private int scoreOnEatenIncreaseFactor = 2;
 
-    public event Action<GhostMode> OnGhostModeChanged;
+    public static event Action<GhostMode> OnGhostModeChanged;
     private GhostMode _preFrightenedMode;
     private int _phaseNumber = 1;
     private float _phaseTimer;
@@ -51,31 +51,31 @@ public class GhostManager : MonoBehaviour
 
     private IEnumerator DoFrightenGhosts()
     {
-        Instance._preFrightenedMode = Instance.PhaseMode;
-        Instance.PhaseMode = GhostMode.Frightened;
-        Instance.OnGhostModeChanged?.Invoke(Instance.PhaseMode);
+        _preFrightenedMode = PhaseMode;
+        PhaseMode = GhostMode.Frightened;
+        OnGhostModeChanged?.Invoke(PhaseMode);
 
         yield return new WaitForSeconds(frightenedTime);
 
-        Instance.PhaseMode = _preFrightenedMode;
-        Instance.OnGhostModeChanged?.Invoke(Instance.PhaseMode);
-        Instance.ScoreOnEaten = baseScoreOnEaten;
+        PhaseMode = _preFrightenedMode;
+        OnGhostModeChanged?.Invoke(PhaseMode);
+        ScoreOnEaten = baseScoreOnEaten;
     }
 
-    private void IncreaseScoreOnEaten(int score)
+    private void IncreaseScoreOnEaten(int previousScore)
     {
-        ScoreOnEaten = score * scoreOnEatenIncreaseFactor;
+        ScoreOnEaten = previousScore * scoreOnEatenIncreaseFactor;
     }
 
     private void Start()
     {
-        Instance.PhaseMode = GhostMode.Scatter;
-        Instance.OnGhostModeChanged?.Invoke(Instance.PhaseMode);
+        PhaseMode = GhostMode.Scatter;
+        OnGhostModeChanged?.Invoke(PhaseMode);
     }
 
     private void Update()
     {
-        Instance.UpdatePhaseMode();
+        UpdatePhaseMode();
     }
 
     private void UpdatePhaseMode()
