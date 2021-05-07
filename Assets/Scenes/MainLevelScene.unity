@@ -159,11 +159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 205692700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
+  m_Script: {fileID: 11500000, guid: 52ca206a9dc3a584e8f650494c01d5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLocation: {x: 1.14, y: 0}
+  movementSpeed: 3
   scatterLocation: {x: -6.77, y: -7.926}
+  spawnLocation: {x: 1.14, y: 0}
   playerTransform: {fileID: 222887684}
 --- !u!4 &205692702
 Transform:
@@ -343,11 +344,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 896543793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c7523ce4e68778418df0939a064abf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLocation: {x: 0, y: 0}
+  movementSpeed: 3
   scatterLocation: {x: -6.77, y: 7.25}
+  spawnLocation: {x: 0, y: 0}
   playerTransform: {fileID: 222887684}
 --- !u!4 &896543795
 Transform:
@@ -389,11 +391,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 924219076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
+  m_Script: {fileID: 11500000, guid: a3d2056e1c9b06b47b77846f58800907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 3
+  scatterLocation: {x: -6.77, y: -7.926}
   spawnLocation: {x: -1.14, y: 0}
-  scatterLocation: {x: 6.78, y: -7.926}
   playerTransform: {fileID: 222887684}
 --- !u!4 &924219078
 Transform:
@@ -552,11 +555,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1912853844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
+  m_Script: {fileID: 11500000, guid: fd02836619faa7241a6bbad1d50c05c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLocation: {x: 0, y: 1.83}
+  movementSpeed: 3
   scatterLocation: {x: 6.78, y: 7.25}
+  spawnLocation: {x: 0, y: 1.83}
   playerTransform: {fileID: 222887684}
 --- !u!4 &1912853846
 Transform:
