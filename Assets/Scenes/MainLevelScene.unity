@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: 1.14, y: 0}
   scatterLocation: {x: -6.77, y: -7.926}
+  playerTransform: {fileID: 222887684}
 --- !u!4 &205692702
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +179,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &222887684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 581870175578484815, guid: 0a9ae459aad78ba49aa6b4945424edaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 581870177590707170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &280473829
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: 0, y: 0}
   scatterLocation: {x: -6.77, y: 7.25}
+  playerTransform: {fileID: 222887684}
 --- !u!4 &896543795
 Transform:
   m_ObjectHideFlags: 0
@@ -386,6 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: -1.14, y: 0}
   scatterLocation: {x: 6.78, y: -7.926}
+  playerTransform: {fileID: 222887684}
 --- !u!4 &924219078
 Transform:
   m_ObjectHideFlags: 0
@@ -548,6 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: 0, y: 1.83}
   scatterLocation: {x: 6.78, y: 7.25}
+  playerTransform: {fileID: 222887684}
 --- !u!4 &1912853846
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class GhostBehaviour : EdibleByPlayer
 
     [SerializeField] private Vector2 spawnLocation;
     [SerializeField] private Vector2 scatterLocation;
+    [SerializeField] private Transform playerTransform;
     private GhostMode _ghostMode;
 
     protected override void Eat()
@@ -39,16 +40,24 @@ public class GhostBehaviour : EdibleByPlayer
 
     private void OnEnable()
     {
-        GhostManager.Instance.OnGhostModeChanged += SetGhostMode;
+        GhostManager.OnGhostModeChanged += SetGhostMode;
     }
 
     private void OnDisable()
     {
-        GhostManager.Instance.OnGhostModeChanged -= SetGhostMode;
+        GhostManager.OnGhostModeChanged -= SetGhostMode;
     }
 
     private void SetGhostMode(GhostMode ghostMode)
     {
         _ghostMode = ghostMode;
+    }
+
+    private void Start()
+    {
+        if (!playerTransform)
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 }
