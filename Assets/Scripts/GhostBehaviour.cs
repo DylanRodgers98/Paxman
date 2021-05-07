@@ -5,34 +5,36 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public abstract class GhostBehaviour : EdibleByPlayer
+public class GhostBehaviour : EdibleByPlayer
 {
     private const float RespawnTime = 4.0f;
     
     public static event Action<int> OnGhostEaten;
     public static event Action OnGhostTouched;
     private static readonly Vector2[] AllDirections = {Vector2.down, Vector2.up, Vector2.left, Vector2.right};
-
-    protected Vector2[] AvailableDirections;
-    protected Vector2 MovementDirection;
-    protected Vector2 LastKnownPosition;
-    protected Vector2 PlayerPosition;
+    private static readonly Vector2[] UpAndLeft = {Vector2.up, Vector2.left};
+    private static readonly Vector2[] UpAndRight = {Vector2.up, Vector2.right};
+    private static readonly Vector2[] DownAndLeft = {Vector2.down, Vector2.left};
+    private static readonly Vector2[] DownAndRight = {Vector2.down, Vector2.right};
+    
     [SerializeField] private float movementSpeed;
     [SerializeField] private Vector2 scatterLocation;
     [SerializeField] private Vector2 spawnLocation;
     [SerializeField] private Transform playerTransform;
     private GhostMode _ghostMode;
-    private IList<Vector2> _directionsToChooseFrom;
     private Vector2[] _desiredDirections;
-
-    protected abstract void SetChaseDirection();
+    private Vector2[] _availableDirections;
+    private Vector2[] _directionsToChooseFrom;
+    private Vector2 _movementDirection;
+    private Vector2 _lastKnownPosition;
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
         if (other.CompareTag("Junction"))
         {
-            AvailableDirections = other.GetComponent<JunctionBehaviour>().AvailableDirections;
+            _availableDirections = other.GetComponent<JunctionBehaviour>().AvailableDirections;
+            transform.position = other.transform.position;
             SetMovementDirection();
         }
     }
@@ -48,12 +50,6 @@ public abstract class GhostBehaviour : EdibleByPlayer
         {
             OnGhostTouched?.Invoke();
         }
-    }
-
-    protected void SetRandomMovementDirection()
-    {
-        MovementDirection = AvailableDirections[
-            AvailableDirections.Length == 1 ? 0 : Random.Range(0, AvailableDirections.Length)];
     }
 
     private IEnumerator DieThenRespawn()
@@ -72,52 +68,46 @@ public abstract class GhostBehaviour : EdibleByPlayer
         switch (_ghostMode)
         {
             case GhostMode.Scatter:
-                SetScatterDirection();
+                SetMovementDirection(scatterLocation);
                 break;
             case GhostMode.Chase:
-                SetChaseDirection();
+                SetMovementDirection(playerTransform.position);
                 break;
             case GhostMode.Frightened:
-                SetFrightenedDirection();
+                SetRandomMovementDirection();
                 break;
         }
     }
 
-    private void SetScatterDirection()
+    private void SetMovementDirection(Vector2 targetLocation)
     {
-        if (scatterLocation.x > 0 && scatterLocation.y > 0)
+        if (targetLocation.x >= 0 && targetLocation.y >= 0)
         {
-            _desiredDirections = new [] {Vector2.right, Vector2.up};
+            _desiredDirections = UpAndRight;
         }
-        else if (scatterLocation.x < 0 && scatterLocation.y > 0)
+        else if (targetLocation.x < 0 && targetLocation.y >= 0)
         {
-            _desiredDirections = new [] {Vector2.left, Vector2.up};
+            _desiredDirections = UpAndLeft;
         }
-        else if (scatterLocation.x > 0 && scatterLocation.y < 0)
+        else if (targetLocation.x >= 0 && targetLocation.y < 0)
         {
-            _desiredDirections = new [] {Vector2.right, Vector2.down};
+            _desiredDirections = DownAndRight;
         }
-        else if (scatterLocation.x < 0 && scatterLocation.y < 0)
+        else if (targetLocation.x < 0 && targetLocation.y < 0)
         {
-            _desiredDirections = new [] {Vector2.left, Vector2.down};
+            _desiredDirections = DownAndLeft;
         }
         else
         {
             _desiredDirections = AllDirections;
         }
 
-        foreach (Vector2 availableDirection in AvailableDirections)
-        {
-            if (_desiredDirections.Contains(availableDirection))
-            {
-                _directionsToChooseFrom.Add(availableDirection);
-            }
-        }
+        _directionsToChooseFrom = _availableDirections.Where(_desiredDirections.Contains).ToArray();
 
-        if (_directionsToChooseFrom.Count > 0)
+        if (_directionsToChooseFrom.Length > 0)
         {
-            MovementDirection = _directionsToChooseFrom[
-                _directionsToChooseFrom.Count == 1 ? 0 : Random.Range(0, _directionsToChooseFrom.Count)];
+            _movementDirection = _directionsToChooseFrom[
+                _directionsToChooseFrom.Length == 1 ? 0 : Random.Range(0, _directionsToChooseFrom.Length)];
         }
         else
         {
@@ -125,9 +115,10 @@ public abstract class GhostBehaviour : EdibleByPlayer
         }
     }
 
-    private void SetFrightenedDirection()
+    private void SetRandomMovementDirection()
     {
-        SetRandomMovementDirection();
+        _movementDirection = _availableDirections[
+            _availableDirections.Length == 1 ? 0 : Random.Range(0, _availableDirections.Length)];
     }
 
     private void OnEnable()
@@ -152,8 +143,7 @@ public abstract class GhostBehaviour : EdibleByPlayer
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        AvailableDirections = AllDirections;
-        _directionsToChooseFrom = new List<Vector2>();
+        _availableDirections = AllDirections;
     }
 
     private void Update()
@@ -163,10 +153,10 @@ public abstract class GhostBehaviour : EdibleByPlayer
 
     private void UpdatePosition()
     {
-        LastKnownPosition = transform.position;
+        _lastKnownPosition = transform.position;
         float distanceToMove = movementSpeed * Time.deltaTime;
-        float x = LastKnownPosition.x + MovementDirection.x * distanceToMove;
-        float y = LastKnownPosition.y + MovementDirection.y * distanceToMove;
+        float x = _lastKnownPosition.x + _movementDirection.x * distanceToMove;
+        float y = _lastKnownPosition.y + _movementDirection.y * distanceToMove;
         transform.position = new Vector2(x, y);
     }
 }
