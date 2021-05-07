@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1.5
-  scatterLocation: {x: -6.77, y: -7.926}
+  scatterLocation: {x: 6.78, y: -7.926}
   spawnLocation: {x: -1.14, y: 0}
   playerTransform: {fileID: 222887684}
 --- !u!4 &924219078

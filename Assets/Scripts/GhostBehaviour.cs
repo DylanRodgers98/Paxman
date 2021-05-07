@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +10,6 @@ public class GhostBehaviour : EdibleByPlayer
     
     public static event Action<int> OnGhostEaten;
     public static event Action OnGhostTouched;
-    private static readonly Vector2[] AllDirections = {Vector2.down, Vector2.up, Vector2.left, Vector2.right};
     private static readonly Vector2[] UpAndLeft = {Vector2.up, Vector2.left};
     private static readonly Vector2[] UpAndRight = {Vector2.up, Vector2.right};
     private static readonly Vector2[] DownAndLeft = {Vector2.down, Vector2.left};
@@ -81,25 +79,23 @@ public class GhostBehaviour : EdibleByPlayer
 
     private void SetMovementDirection(Vector2 targetLocation)
     {
-        if (targetLocation.x >= 0 && targetLocation.y >= 0)
+        _lastKnownPosition = transform.position;
+        
+        if (targetLocation.x >= _lastKnownPosition.x && targetLocation.y >= _lastKnownPosition.y)
         {
             _desiredDirections = UpAndRight;
         }
-        else if (targetLocation.x < 0 && targetLocation.y >= 0)
+        else if (targetLocation.x < _lastKnownPosition.x && targetLocation.y >= _lastKnownPosition.y)
         {
             _desiredDirections = UpAndLeft;
         }
-        else if (targetLocation.x >= 0 && targetLocation.y < 0)
+        else if (targetLocation.x >= _lastKnownPosition.x && targetLocation.y < _lastKnownPosition.y)
         {
             _desiredDirections = DownAndRight;
         }
-        else if (targetLocation.x < 0 && targetLocation.y < 0)
+        else if (targetLocation.x < _lastKnownPosition.x && targetLocation.y < _lastKnownPosition.y)
         {
             _desiredDirections = DownAndLeft;
-        }
-        else
-        {
-            _desiredDirections = AllDirections;
         }
 
         _directionsToChooseFrom = _availableDirections.Where(_desiredDirections.Contains).ToArray();
@@ -142,8 +138,6 @@ public class GhostBehaviour : EdibleByPlayer
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
-
-        _availableDirections = AllDirections;
     }
 
     private void Update()
