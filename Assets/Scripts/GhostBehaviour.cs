@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GhostBehaviour : EdibleByPlayer
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
+public class GhostBehaviour : MonoBehaviour
 {
-    private const float RespawnTime = 4.0f;
-    
-    public static event Action<int> OnGhostEaten;
     public static event Action OnGhostTouched;
     private static readonly Vector2[] UpAndLeft = {Vector2.up, Vector2.left};
     private static readonly Vector2[] UpAndRight = {Vector2.up, Vector2.right};
@@ -17,18 +14,62 @@ public class GhostBehaviour : EdibleByPlayer
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private Vector2 scatterLocation;
-    [SerializeField] private Vector2 spawnLocation;
     [SerializeField] private Transform playerTransform;
-    private GhostMode _ghostMode;
     private Vector2[] _desiredDirections;
     private Vector2[] _availableDirections;
     private Vector2[] _directionsToChooseFrom;
     private Vector2 _movementDirection;
     private Vector2 _lastKnownPosition;
+    
+    public GhostMode GhostMode { get; set; }
 
-    protected override void OnTriggerEnter2D(Collider2D other)
+    private void OnEnable()
     {
-        base.OnTriggerEnter2D(other);
+        GhostManager.OnGhostModeChanged += SetGhostMode;
+    }
+
+    private void OnDisable()
+    {
+        GhostManager.OnGhostModeChanged -= SetGhostMode;
+    }
+
+    private void SetGhostMode(GhostMode ghostMode)
+    {
+        GhostMode = ghostMode;
+    }
+
+    private void Start()
+    {
+        if (!playerTransform)
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
+
+    private void Update()
+    {
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        _lastKnownPosition = transform.position;
+        float distanceToMove = movementSpeed * Time.deltaTime;
+        float x = _lastKnownPosition.x + _movementDirection.x * distanceToMove;
+        float y = _lastKnownPosition.y + _movementDirection.y * distanceToMove;
+        transform.position = new Vector2(x, y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (GhostMode != GhostMode.Frightened && other.gameObject.CompareTag("Player"))
+        {
+            OnGhostTouched?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.CompareTag("Junction"))
         {
             _availableDirections = other.GetComponent<JunctionBehaviour>().AvailableDirections;
@@ -37,33 +78,9 @@ public class GhostBehaviour : EdibleByPlayer
         }
     }
 
-    protected override void Eat()
-    {
-        if (_ghostMode == GhostMode.Frightened)
-        {
-            OnGhostEaten?.Invoke(GhostManager.Instance.ScoreOnEaten);
-            StartCoroutine(DieThenRespawn());
-        }
-        else
-        {
-            OnGhostTouched?.Invoke();
-        }
-    }
-
-    private IEnumerator DieThenRespawn()
-    {
-        gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(RespawnTime);
-
-        transform.position = spawnLocation;
-        _ghostMode = GhostManager.Instance.PhaseMode;
-        gameObject.SetActive(true);
-    }
-
     private void SetMovementDirection()
     {
-        switch (_ghostMode)
+        switch (GhostMode)
         {
             case GhostMode.Scatter:
                 SetMovementDirection(scatterLocation);
@@ -115,42 +132,5 @@ public class GhostBehaviour : EdibleByPlayer
     {
         _movementDirection = _availableDirections[
             _availableDirections.Length == 1 ? 0 : Random.Range(0, _availableDirections.Length)];
-    }
-
-    private void OnEnable()
-    {
-        GhostManager.OnGhostModeChanged += SetGhostMode;
-    }
-
-    private void OnDisable()
-    {
-        GhostManager.OnGhostModeChanged -= SetGhostMode;
-    }
-
-    private void SetGhostMode(GhostMode ghostMode)
-    {
-        _ghostMode = ghostMode;
-    }
-
-    private void Start()
-    {
-        if (!playerTransform)
-        {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-    }
-
-    private void Update()
-    {
-        UpdatePosition();
-    }
-
-    private void UpdatePosition()
-    {
-        _lastKnownPosition = transform.position;
-        float distanceToMove = movementSpeed * Time.deltaTime;
-        float x = _lastKnownPosition.x + _movementDirection.x * distanceToMove;
-        float y = _lastKnownPosition.y + _movementDirection.y * distanceToMove;
-        transform.position = new Vector2(x, y);
     }
 }

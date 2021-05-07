@@ -35,13 +35,13 @@ public class GhostManager : MonoBehaviour
     private void OnEnable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten += FrightenGhosts;
-        GhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
+        EatGhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
     }
 
     private void OnDisable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten -= FrightenGhosts;
-        GhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
+        EatGhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
     }
 
     private void FrightenGhosts()

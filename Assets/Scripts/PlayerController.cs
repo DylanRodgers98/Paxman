@@ -15,14 +15,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         DotBehaviour.OnDotEaten += IncreaseScore;
-        GhostBehaviour.OnGhostEaten += IncreaseScore;
+        EatGhostBehaviour.OnGhostEaten += IncreaseScore;
         GhostBehaviour.OnGhostTouched += DecrementLives;
     }
 
     private void OnDisable()
     {
         DotBehaviour.OnDotEaten -= IncreaseScore;
-        GhostBehaviour.OnGhostEaten -= IncreaseScore;
+        EatGhostBehaviour.OnGhostEaten -= IncreaseScore;
         GhostBehaviour.OnGhostTouched -= DecrementLives;
     }
 
