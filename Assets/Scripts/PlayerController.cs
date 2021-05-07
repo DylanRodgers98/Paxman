@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public static event Action OnPlayerDied;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private int initialLives = 3;
     private Vector2 _movementDirection = Vector2.left;
     private Vector3 _lastKnownPosition;
     private int _score;
@@ -32,6 +33,11 @@ public class PlayerController : MonoBehaviour
     {
         _lives--;
         if (_lives == 0) OnPlayerDied?.Invoke();
+    }
+
+    private void Start()
+    {
+        _lives = initialLives;
     }
 
     private void Move(InputAction.CallbackContext context)
