@@ -81,7 +81,7 @@ public class GhostBehaviour : MonoBehaviour
             }
             else
             {
-                GhostManager.Instance.KillThenRespawn(gameObject);
+                GhostManager.Instance.KillThenRespawn(this);
                 OnGhostEaten?.Invoke(GhostManager.Instance.ScoreOnEaten);
             }
         }

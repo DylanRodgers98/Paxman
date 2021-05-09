@@ -21,17 +21,20 @@ public class GhostManager : MonoBehaviour
     public GhostMode PhaseMode { get; private set; }
     public int ScoreOnEaten { get; private set; }
 
-    public void KillThenRespawn(GameObject ghostGameObject)
+    public void KillThenRespawn(GhostBehaviour ghostBehaviour)
     {
-        StartCoroutine(DoKillThenRespawn(ghostGameObject));
+        StartCoroutine(DoKillThenRespawn(ghostBehaviour));
     }
     
-    private IEnumerator DoKillThenRespawn(GameObject ghostGameObject)
+    private IEnumerator DoKillThenRespawn(GhostBehaviour ghostBehaviour)
     {
+        GameObject ghostGameObject = ghostBehaviour.gameObject;
         ghostGameObject.SetActive(false);
+        
         yield return new WaitForSeconds(respawnTime);
+        
         ghostGameObject.SetActive(true);
-        ghostGameObject.GetComponent<GhostBehaviour>().Respawn();
+        ghostBehaviour.Respawn();
     }
 
     private void Awake()
