@@ -10,6 +10,7 @@ public class GhostManager : MonoBehaviour
     [SerializeField] private float lateScatterTime = 5.0f;
     [SerializeField] private int baseScoreOnEaten = 200;
     [SerializeField] private int scoreOnEatenIncreaseFactor = 2;
+    [SerializeField] private float respawnTime = 4.0f;
 
     public static event Action<GhostMode> OnGhostModeChanged;
     private GhostMode _preFrightenedMode;
@@ -19,6 +20,19 @@ public class GhostManager : MonoBehaviour
     public static GhostManager Instance { get; private set; }
     public GhostMode PhaseMode { get; private set; }
     public int ScoreOnEaten { get; private set; }
+
+    public void KillThenRespawn(GameObject ghostGameObject)
+    {
+        StartCoroutine(DoKillThenRespawn(ghostGameObject));
+    }
+    
+    private IEnumerator DoKillThenRespawn(GameObject ghostGameObject)
+    {
+        ghostGameObject.SetActive(false);
+        yield return new WaitForSeconds(respawnTime);
+        ghostGameObject.SetActive(true);
+        ghostGameObject.GetComponent<GhostBehaviour>().Respawn();
+    }
 
     private void Awake()
     {
@@ -35,13 +49,13 @@ public class GhostManager : MonoBehaviour
     private void OnEnable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten += FrightenGhosts;
-        EatGhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
+        GhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
     }
 
     private void OnDisable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten -= FrightenGhosts;
-        EatGhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
+        GhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
     }
 
     private void FrightenGhosts()

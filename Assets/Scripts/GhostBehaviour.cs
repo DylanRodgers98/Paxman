@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class GhostBehaviour : MonoBehaviour
 {
     public static event Action OnGhostTouched;
+    public static event Action<int> OnGhostEaten;
     private static readonly Vector2[] UpAndLeft = {Vector2.up, Vector2.left};
     private static readonly Vector2[] UpAndRight = {Vector2.up, Vector2.right};
     private static readonly Vector2[] DownAndLeft = {Vector2.down, Vector2.left};
@@ -14,6 +15,7 @@ public class GhostBehaviour : MonoBehaviour
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private Vector2 scatterLocation;
+    [SerializeField] private Vector2 respawnLocation;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GhostMode initialGhostMode = GhostMode.Scatter;
     private Vector2[] _desiredDirections;
@@ -21,8 +23,14 @@ public class GhostBehaviour : MonoBehaviour
     private Vector2[] _directionsToChooseFrom;
     private Vector2 _movementDirection;
     private Vector2 _lastKnownPosition;
-    
-    public GhostMode GhostMode { get; set; }
+    private GhostMode _ghostMode;
+
+    public void Respawn()
+    {
+        transform.position = respawnLocation;
+        _movementDirection = Vector2.zero;
+        _ghostMode = GhostManager.Instance.PhaseMode;
+    }
 
     private void OnEnable()
     {
@@ -36,7 +44,7 @@ public class GhostBehaviour : MonoBehaviour
 
     private void SetGhostMode(GhostMode ghostMode)
     {
-        GhostMode = ghostMode;
+        _ghostMode = ghostMode;
     }
 
     private void Start()
@@ -46,7 +54,7 @@ public class GhostBehaviour : MonoBehaviour
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        GhostMode = initialGhostMode;
+        _ghostMode = initialGhostMode;
     }
 
     private void Update()
@@ -65,9 +73,17 @@ public class GhostBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (GhostMode != GhostMode.Frightened && other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            OnGhostTouched?.Invoke();
+            if (_ghostMode != GhostMode.Frightened)
+            {
+                OnGhostTouched?.Invoke();
+            }
+            else
+            {
+                GhostManager.Instance.KillThenRespawn(gameObject);
+                OnGhostEaten?.Invoke(GhostManager.Instance.ScoreOnEaten);
+            }
         }
     }
 
@@ -83,7 +99,7 @@ public class GhostBehaviour : MonoBehaviour
 
     private void SetMovementDirection()
     {
-        switch (GhostMode)
+        switch (_ghostMode)
         {
             case GhostMode.Scatter:
                 SetMovementDirection(scatterLocation);
