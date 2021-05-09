@@ -15,6 +15,7 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private Vector2 scatterLocation;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private GhostMode initialGhostMode = GhostMode.Scatter;
     private Vector2[] _desiredDirections;
     private Vector2[] _availableDirections;
     private Vector2[] _directionsToChooseFrom;
@@ -44,6 +45,8 @@ public class GhostBehaviour : MonoBehaviour
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
+
+        GhostMode = initialGhostMode;
     }
 
     private void Update()
