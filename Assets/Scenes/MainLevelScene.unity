@@ -386,7 +386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &581870177590707170
 PrefabInstance:
@@ -539,6 +539,11 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 222887684}
+    - target: {fileID: 1212642152398073887, guid: cec237b8da8ba2a40b3a572b84c261db,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cec237b8da8ba2a40b3a572b84c261db, type: 3}
 --- !u!1001 &1891343615996933542
@@ -671,7 +676,7 @@ PrefabInstance:
     - target: {fileID: 1891343615605430306, guid: 38e5a3167d403ef4f8dc3fd7a39d8837,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1891343615605430306, guid: 38e5a3167d403ef4f8dc3fd7a39d8837,
         type: 3}
@@ -1027,6 +1032,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3525337044457490825, guid: f57422e61fb038b4bb783c3cddad5a3d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3525337044457490866, guid: f57422e61fb038b4bb783c3cddad5a3d,
         type: 3}
       propertyPath: m_Name
@@ -1106,6 +1116,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4225604157857610265, guid: b8937fa3ba84fb4458ebdbbfd72c8b4c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4225604157857610266, guid: b8937fa3ba84fb4458ebdbbfd72c8b4c,
         type: 3}
       propertyPath: playerTransform
@@ -1120,6 +1135,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8231556291288271664, guid: 1bca53824dbf98c4c8acecbc4d8ed7b3,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8231556291288271665, guid: 1bca53824dbf98c4c8acecbc4d8ed7b3,
         type: 3}
       propertyPath: playerTransform
