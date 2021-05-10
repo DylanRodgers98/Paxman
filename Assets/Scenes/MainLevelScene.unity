@@ -121,18 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &74482417 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 581870175578484818, guid: 0a9ae459aad78ba49aa6b4945424edaf,
-    type: 3}
-  m_PrefabInstance: {fileID: 581870177590707170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e39e3176c69c5d2488aad2f2cb317076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &222887684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581870175578484815, guid: 0a9ae459aad78ba49aa6b4945424edaf,
@@ -317,7 +305,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 74482417}
+      - m_Target: {fileID: 581870177590707171}
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -468,6 +456,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a9ae459aad78ba49aa6b4945424edaf, type: 3}
+--- !u!114 &581870177590707171 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6469512171020609344, guid: 0a9ae459aad78ba49aa6b4945424edaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 581870177590707170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884a9de81db08ea44b165f48cab76863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1212642151073819192
 PrefabInstance:
   m_ObjectHideFlags: 0

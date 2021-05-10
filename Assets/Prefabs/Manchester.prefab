@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3525337044457490824}
   - component: {fileID: 3525337044457490825}
   - component: {fileID: 3525337044457490870}
+  - component: {fileID: 480512757810135390}
   - component: {fileID: 3525337044457490869}
   - component: {fileID: 3084285812661838878}
   m_Layer: 11
@@ -97,11 +98,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  scatterLocation: {x: -6.77, y: 7.25}
   respawnLocation: {x: 0, y: 0.204}
-  playerTransform: {fileID: 0}
   initialGhostMode: 1
+--- !u!114 &480512757810135390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525337044457490866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2.5
+  scatterLocation: {x: -6.77, y: 7.25}
+  playerTransform: {fileID: 0}
 --- !u!50 &3525337044457490869
 Rigidbody2D:
   serializedVersion: 4
