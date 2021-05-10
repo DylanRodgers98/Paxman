@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 4886057053909528085}
   m_Layer: 11
   m_Name: Magdalen
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnLocation: {x: 0, y: 0.204}
-  playerTransform: {fileID: 0}
   initialGhostMode: 1
 --- !u!114 &7629341508194675919
 MonoBehaviour:
@@ -160,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2.5
+  movementSpeed: 3
   scatterLocation: {x: 6.78, y: 7.25}
   playerTransform: {fileID: 0}
 --- !u!50 &4225604157857610261

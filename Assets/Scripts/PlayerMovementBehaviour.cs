@@ -3,14 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementBehaviour : MovementBehaviour
 {
-    private void Start()
+    public void Start()
     {
         SetMovementDirection(Vector2.left);
     }
-    
+
     public void Move(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && Time.timeScale > 0)
         {
             SetMovementDirection(context.ReadValue<Vector2>());
         }
@@ -33,7 +33,8 @@ public class PlayerMovementBehaviour : MovementBehaviour
     private void SetRotation()
     {
         if (MovementDirection == Vector2.left ||
-            MovementDirection == Vector2.right)
+            MovementDirection == Vector2.right ||
+            MovementDirection == Vector2.zero)
         {
             transform.rotation = Quaternion.identity;
         }

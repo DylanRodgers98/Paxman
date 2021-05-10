@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3084285812661838878}
   m_Layer: 11
   m_Name: Manchester
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2.5
+  movementSpeed: 3
   scatterLocation: {x: -6.77, y: 7.25}
   playerTransform: {fileID: 0}
 --- !u!50 &3525337044457490869

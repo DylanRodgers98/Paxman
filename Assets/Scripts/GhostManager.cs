@@ -37,6 +37,13 @@ public class GhostManager : MonoBehaviour
         ghostBehaviour.Respawn();
     }
 
+    public void ResetPhases()
+    {
+        _phaseNumber = 1;
+        _phaseTimer = 0;
+        Start();
+    }
+
     private void Awake()
     {
         if (Instance)
