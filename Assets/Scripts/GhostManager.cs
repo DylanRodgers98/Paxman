@@ -17,7 +17,6 @@ public class GhostManager : MonoBehaviour
     private int _phaseNumber = 1;
     private float _phaseTimer;
 
-    public static GhostManager Instance { get; private set; }
     public GhostMode PhaseMode { get; private set; }
     public int ScoreOnEaten { get; private set; }
 
@@ -42,18 +41,6 @@ public class GhostManager : MonoBehaviour
         _phaseNumber = 1;
         _phaseTimer = 0;
         Start();
-    }
-
-    private void Awake()
-    {
-        if (Instance)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
     }
 
     private void OnEnable()

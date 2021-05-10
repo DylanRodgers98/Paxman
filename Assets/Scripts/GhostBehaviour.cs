@@ -9,13 +9,14 @@ public class GhostBehaviour : MonoBehaviour
 
     [SerializeField] private Vector2 respawnLocation;
     [SerializeField] private GhostMode initialGhostMode = GhostMode.Scatter;
+    private GhostManager _ghostManager;
     
     public GhostMode GhostMode { get; private set; }
 
     public void Respawn()
     {
         transform.position = respawnLocation;
-        GhostMode = GhostManager.Instance.PhaseMode;
+        GhostMode = _ghostManager.PhaseMode;
     }
 
     private void OnEnable()
@@ -35,6 +36,7 @@ public class GhostBehaviour : MonoBehaviour
 
     private void Start()
     {
+        _ghostManager = FindObjectOfType<GhostManager>();
         GhostMode = initialGhostMode;
     }
 
@@ -48,8 +50,8 @@ public class GhostBehaviour : MonoBehaviour
             }
             else
             {
-                GhostManager.Instance.KillThenRespawn(this);
-                OnGhostEaten?.Invoke(GhostManager.Instance.ScoreOnEaten);
+                _ghostManager.KillThenRespawn(this);
+                OnGhostEaten?.Invoke(_ghostManager.ScoreOnEaten);
             }
         }
     }

@@ -10,6 +10,7 @@ public class PlayerLives : MonoBehaviour
     [SerializeField] private float gameResetTime = 5.0f;
     [SerializeField] private GameObject[] ghostGameObjects;
     private PlayerMovementBehaviour _playerMovementBehaviour;
+    private GhostManager _ghostManager;
     private int _lives;
     private Vector2 _playerInitialPosition;
     private IDictionary<Transform, Vector2> _ghostInitialPositions;
@@ -17,6 +18,7 @@ public class PlayerLives : MonoBehaviour
     private void Start()
     {
         _playerMovementBehaviour = GetComponent<PlayerMovementBehaviour>();
+        _ghostManager = FindObjectOfType<GhostManager>();
         _lives = initialLives;
         _playerInitialPosition = transform.position;
         if (ghostGameObjects == null || ghostGameObjects.Length == 0)
@@ -68,7 +70,7 @@ public class PlayerLives : MonoBehaviour
             ghostTransform.position = initialPosition;
         }
 
-        GhostManager.Instance.ResetPhases();
+        _ghostManager.ResetPhases();
         Time.timeScale = 0;
 
         yield return new WaitForSecondsRealtime(gameResetTime);
