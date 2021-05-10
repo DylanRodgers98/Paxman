@@ -12,7 +12,7 @@ public class GhostManager : MonoBehaviour
     [SerializeField] private int baseScoreOnEaten = 200;
     [SerializeField] private int scoreOnEatenIncreaseFactor = 2;
     [SerializeField] private float respawnTime = 4.0f;
-    [SerializeField] private Vector2 respawnPosition;
+    [SerializeField] private Transform respawnJunctionTransform;
 
     public static event Action<GhostMode> OnGhostModeChanged;
     private Tuple<GameObject, Vector2>[] _ghostInitialPositions;
@@ -36,7 +36,7 @@ public class GhostManager : MonoBehaviour
         yield return new WaitForSeconds(respawnTime);
 
         ghostGameObject.SetActive(true);
-        ghostGameObject.transform.position = respawnPosition;
+        ghostGameObject.transform.position = respawnJunctionTransform.position;
         ghostBehaviour.GhostMode = _phaseMode;
     }
 

@@ -162,7 +162,7 @@ MonoBehaviour:
   baseScoreOnEaten: 200
   scoreOnEatenIncreaseFactor: 2
   respawnTime: 4
-  respawnPosition: {x: 0, y: 0.204}
+  respawnJunctionTransform: {fileID: 2088720478}
 --- !u!4 &280473831
 Transform:
   m_ObjectHideFlags: 0
@@ -1134,6 +1134,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!4 &2088720478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2028360293639377711, guid: 38e5a3167d403ef4f8dc3fd7a39d8837,
+    type: 3}
+  m_PrefabInstance: {fileID: 1891343615996933542}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2123243586
 GameObject:
   m_ObjectHideFlags: 0
