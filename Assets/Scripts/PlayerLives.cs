@@ -8,12 +8,10 @@ public class PlayerLives : MonoBehaviour
 {
     [SerializeField] private int initialLives = 3;
     [SerializeField] private float gameResetTime = 5.0f;
-    [SerializeField] private GameObject[] ghostGameObjects;
     private PlayerMovementBehaviour _playerMovementBehaviour;
     private GhostManager _ghostManager;
     private int _lives;
     private Vector2 _playerInitialPosition;
-    private IDictionary<Transform, Vector2> _ghostInitialPositions;
 
     private void Start()
     {
@@ -21,16 +19,6 @@ public class PlayerLives : MonoBehaviour
         _ghostManager = FindObjectOfType<GhostManager>();
         _lives = initialLives;
         _playerInitialPosition = transform.position;
-        if (ghostGameObjects == null || ghostGameObjects.Length == 0)
-        {
-            ghostGameObjects = GameObject.FindGameObjectsWithTag("Ghost");
-        }
-
-        _ghostInitialPositions = new Dictionary<Transform, Vector2>();
-        foreach (GameObject ghostGameObject in ghostGameObjects)
-        {
-            _ghostInitialPositions[ghostGameObject.transform] = ghostGameObject.transform.position;
-        }
     }
 
     private void OnEnable()
@@ -53,24 +41,16 @@ public class PlayerLives : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ResetGame());
+            StartCoroutine(ResetLevel());
         }
     }
 
-    private IEnumerator ResetGame()
+    private IEnumerator ResetLevel()
     {
         transform.position = _playerInitialPosition;
         _playerMovementBehaviour.Start();
+        _ghostManager.ResetGhosts();
 
-        foreach (var kvp in _ghostInitialPositions)
-        {
-            Transform ghostTransform = kvp.Key;
-            Vector2 initialPosition = kvp.Value;
-            ghostTransform.gameObject.SetActive(true);
-            ghostTransform.position = initialPosition;
-        }
-
-        _ghostManager.ResetPhases();
         Time.timeScale = 0;
 
         yield return new WaitForSecondsRealtime(gameResetTime);

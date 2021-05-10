@@ -7,17 +7,10 @@ public class GhostBehaviour : MonoBehaviour
     public static event Action OnGhostTouched;
     public static event Action<int> OnGhostEaten;
 
-    [SerializeField] private Vector2 respawnLocation;
     [SerializeField] private GhostMode initialGhostMode = GhostMode.Scatter;
     private GhostManager _ghostManager;
-    
-    public GhostMode GhostMode { get; private set; }
 
-    public void Respawn()
-    {
-        transform.position = respawnLocation;
-        GhostMode = _ghostManager.PhaseMode;
-    }
+    public GhostMode GhostMode { get; set; }
 
     private void OnEnable()
     {

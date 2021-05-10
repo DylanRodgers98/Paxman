@@ -1,19 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovementBehaviour : MovementBehaviour
 {
     public void Start()
     {
         SetMovementDirection(Vector2.left);
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (context.performed && Time.timeScale > 0)
-        {
-            SetMovementDirection(context.ReadValue<Vector2>());
-        }
     }
 
     protected override void SetMovementDirection(Vector2 movementDirection)
