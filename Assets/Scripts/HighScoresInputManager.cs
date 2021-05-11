@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LeaderboardInputManager : MonoBehaviour
+public class HighScoresInputManager : MonoBehaviour
 {
     [SerializeField] private string mainMenuSceneName;
 
