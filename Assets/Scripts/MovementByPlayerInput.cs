@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(MovementBehaviour))]
-public class MovementByInput : MonoBehaviour
+public class MovementByPlayerInput : MonoBehaviour
 {
     private MovementBehaviour _movementBehaviour;
     

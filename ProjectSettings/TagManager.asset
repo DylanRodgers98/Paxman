@@ -18,10 +18,10 @@ TagManager:
   - Impassable (All)
   - Impassable (Player only)
   - Player
-  - Enemy
+  - Ghost
   - Junction
   - Pathfinding
-  - Dots and Pellets
+  - Pac-Dots
   - 
   - 
   - 
