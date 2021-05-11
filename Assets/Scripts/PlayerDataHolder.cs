@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerDataHolder : MonoBehaviour
 {
     public static event Action<int> OnScoreChanged;
     public static event Action<int> OnLivesChanged;
     public static event Action OnPlayerLostLife;
-    public static event Action<int> OnPlayerDied;
+    public static event Action OnPlayerDied;
+    public static event Action<int> OnFinalScore;
     
     [SerializeField] private int initialLives = 3;
     private Transform _transform;
@@ -46,10 +47,8 @@ public class PlayerController : MonoBehaviour
         OnLivesChanged?.Invoke(--_lives);
         if (_lives == 0)
         {
-            // TODO: implement something for when player loses all lives
-            Time.timeScale = 0;
-            Debug.Log("You died!");
-            OnPlayerDied?.Invoke(_score);
+            OnPlayerDied?.Invoke();
+            OnFinalScore?.Invoke(_score);
         }
         else
         {

@@ -60,7 +60,7 @@ public class PlayerMovementBehaviour : MovementBehaviour
 
     private new void Update()
     {
-        if (Time.timeScale > 0 && LastKnownPosition == (Vector2) PlayerTransform.position)
+        if (IsMovementEnabled && (Vector2) PlayerTransform.position == LastKnownPosition)
         {
             base.SetDirection(Vector2.zero);
         }

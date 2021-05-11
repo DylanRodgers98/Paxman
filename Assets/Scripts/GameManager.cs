@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerController.OnPlayerLostLife += ResetLevel;
+        PlayerDataHolder.OnPlayerLostLife += ResetLevel;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnPlayerLostLife -= ResetLevel;
+        PlayerDataHolder.OnPlayerLostLife -= ResetLevel;
     }
 
     private void ResetLevel()

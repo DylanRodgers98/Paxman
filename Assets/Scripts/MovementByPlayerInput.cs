@@ -8,7 +8,7 @@ public class MovementByPlayerInput : MonoBehaviour
     
     public void Move(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeScale > 0)
+        if (context.performed)
         {
             _movementBehaviour.SetDirection(context.ReadValue<Vector2>());
         }

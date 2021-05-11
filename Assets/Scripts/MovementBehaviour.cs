@@ -26,12 +26,14 @@ public class MovementBehaviour : MonoBehaviour
     {
         GameManager.OnLevelStart += EnableMovement;
         GameManager.OnLevelReset += DisableMovement;
+        PlayerDataHolder.OnPlayerDied += DisableMovement;
     }
 
     protected virtual void OnDisable()
     {
         GameManager.OnLevelStart -= EnableMovement;
         GameManager.OnLevelReset -= DisableMovement;
+        PlayerDataHolder.OnPlayerDied -= DisableMovement;
     }
 
     private void EnableMovement() => IsMovementEnabled = true;
