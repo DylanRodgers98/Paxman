@@ -15,7 +15,7 @@ public class PlayerMovementByReplay : PlayerMovementBehaviour
         base.Start();
     }
 
-    private void Update()
+    private new void Update()
     {
         if (_hasNextAction && _actionTime >= Time.timeSinceLevelLoad)
         {

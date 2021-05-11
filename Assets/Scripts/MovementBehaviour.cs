@@ -3,13 +3,13 @@
 public class MovementBehaviour : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
-    private Transform _transform;
-    private Vector2 _lastKnownPosition;
     private float _distanceToMove;
     private float _x;
     private float _y;
 
+    protected Transform PlayerTransform { get; private set; }
     protected Vector2 Direction { get; private set; }
+    protected Vector2 LastKnownPosition { get; private set; }
 
     public virtual void SetDirection(Vector2 direction)
     {
@@ -18,16 +18,16 @@ public class MovementBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        _transform = transform;
+        PlayerTransform = transform;
     }
 
-    private void Update()
+    protected void Update()
     {
         if (Direction == Vector2.zero) return;
-        _lastKnownPosition = _transform.position;
+        LastKnownPosition = PlayerTransform.position;
         _distanceToMove = movementSpeed * Time.deltaTime;
-        _x = _lastKnownPosition.x + Direction.x * _distanceToMove;
-        _y = _lastKnownPosition.y + Direction.y * _distanceToMove;
-        _transform.position = new Vector2(_x, _y);
+        _x = LastKnownPosition.x + Direction.x * _distanceToMove;
+        _y = LastKnownPosition.y + Direction.y * _distanceToMove;
+        PlayerTransform.position = new Vector2(_x, _y);
     }
 }

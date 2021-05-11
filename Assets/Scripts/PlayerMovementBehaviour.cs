@@ -38,4 +38,13 @@ public class PlayerMovementBehaviour : MovementBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 90);
         }
     }
+
+    private new void Update()
+    {
+        if (Time.timeScale > 0 && LastKnownPosition == (Vector2) PlayerTransform.position)
+        {
+            base.SetDirection(Vector2.zero);
+        }
+        base.Update();
+    }
 }
