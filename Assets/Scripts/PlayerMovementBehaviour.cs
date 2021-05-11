@@ -5,15 +5,15 @@ public class PlayerMovementBehaviour : MovementBehaviour
     protected override void OnEnable()
     {
         base.OnEnable();
-        GameManager.OnLevelStart += SetStartDirection;
-        GameManager.OnLevelReset += SetStartDirection;
+        LevelManager.OnLevelStart += SetStartDirection;
+        LevelManager.OnLevelReset += SetStartDirection;
     }
 
     protected override void OnDisable()
     {
         base.OnEnable();
-        GameManager.OnLevelStart -= SetStartDirection;
-        GameManager.OnLevelReset -= SetStartDirection;
+        LevelManager.OnLevelStart -= SetStartDirection;
+        LevelManager.OnLevelReset -= SetStartDirection;
     }
 
     private void SetStartDirection() => SetDirectionInternal(Vector2.left);

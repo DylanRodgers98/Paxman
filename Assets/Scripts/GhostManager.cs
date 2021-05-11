@@ -42,8 +42,8 @@ public class GhostManager : MonoBehaviour
     {
         PowerPelletBehaviour.OnPowerPelletEaten += FrightenGhosts;
         GhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
-        GameManager.OnLevelStart += InitialisePhaseTimer;
-        GameManager.OnLevelReset += DisablePhaseTimer;
+        LevelManager.OnLevelStart += InitialisePhaseTimer;
+        LevelManager.OnLevelReset += DisablePhaseTimer;
         PlayerDataHolder.OnPlayerDied += DisablePhaseTimer;
     }
 
@@ -51,8 +51,8 @@ public class GhostManager : MonoBehaviour
     {
         PowerPelletBehaviour.OnPowerPelletEaten -= FrightenGhosts;
         GhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
-        GameManager.OnLevelStart -= InitialisePhaseTimer;
-        GameManager.OnLevelReset -= DisablePhaseTimer;
+        LevelManager.OnLevelStart -= InitialisePhaseTimer;
+        LevelManager.OnLevelReset -= DisablePhaseTimer;
         PlayerDataHolder.OnPlayerDied -= DisablePhaseTimer;
     }
 

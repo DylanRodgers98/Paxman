@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public static event Action OnLevelStart;
     public static event Action OnLevelReset;

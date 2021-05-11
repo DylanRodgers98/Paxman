@@ -22,12 +22,12 @@ public class GhostMovementByJunction : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnLevelReset += ResetIsDirectionChosen;
+        LevelManager.OnLevelReset += ResetIsDirectionChosen;
     }
 
     private void OnDisable()
     {
-        GameManager.OnLevelReset -= ResetIsDirectionChosen;
+        LevelManager.OnLevelReset -= ResetIsDirectionChosen;
     }
 
     private void ResetIsDirectionChosen() => _isDirectionChosen = false;

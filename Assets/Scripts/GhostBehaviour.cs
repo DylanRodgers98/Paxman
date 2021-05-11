@@ -23,13 +23,13 @@ public class GhostBehaviour : MonoBehaviour
     private void OnEnable()
     {
         GhostManager.OnGhostModeChanged += SetGhostMode;
-        GameManager.OnLevelReset += ResetGhost;
+        LevelManager.OnLevelReset += ResetGhost;
     }
 
     private void OnDisable()
     {
         GhostManager.OnGhostModeChanged -= SetGhostMode;
-        GameManager.OnLevelReset -= ResetGhost;
+        LevelManager.OnLevelReset -= ResetGhost;
     }
 
     private void SetGhostMode(GhostMode ghostMode)

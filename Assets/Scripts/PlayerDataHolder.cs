@@ -26,7 +26,7 @@ public class PlayerDataHolder : MonoBehaviour
         DotBehaviour.OnDotEaten += IncreaseScore;
         GhostBehaviour.OnGhostEaten += IncreaseScore;
         GhostBehaviour.OnGhostTouched += DecrementLives;
-        GameManager.OnLevelReset += ResetPosition;
+        LevelManager.OnLevelReset += ResetPosition;
     }
 
     private void OnDisable()
@@ -34,7 +34,7 @@ public class PlayerDataHolder : MonoBehaviour
         DotBehaviour.OnDotEaten -= IncreaseScore;
         GhostBehaviour.OnGhostEaten -= IncreaseScore;
         GhostBehaviour.OnGhostTouched -= DecrementLives;
-        GameManager.OnLevelReset -= ResetPosition;
+        LevelManager.OnLevelReset -= ResetPosition;
     }
 
     private void IncreaseScore(int amount)
