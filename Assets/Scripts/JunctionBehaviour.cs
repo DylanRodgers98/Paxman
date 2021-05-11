@@ -29,4 +29,13 @@ public class JunctionBehaviour : MonoBehaviour
             return _availableDirections;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ghost"))
+        {
+            // recenter ghosts so they do not get stuck in walls
+            other.transform.position = transform.position;
+        }
+    }
 }
