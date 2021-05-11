@@ -38,14 +38,12 @@ public class PlayerController : MonoBehaviour
 
     private void IncreaseScore(int amount)
     {
-        _score += amount;
-        OnScoreChanged?.Invoke(_score);
+        OnScoreChanged?.Invoke(_score += amount);
     }
 
     private void DecrementLives()
     {
-        --_lives;
-        OnLivesChanged?.Invoke(_lives);
+        OnLivesChanged?.Invoke(--_lives);
         if (_lives == 0)
         {
             // TODO: implement something for when player loses all lives
@@ -59,7 +57,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ResetPosition() => _transform.position = _initialPosition;
+    private void ResetPosition()
+    {
+        _transform.position = _initialPosition;
+    }
 
     private void Start()
     {
