@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 779906687}
   - component: {fileID: 779906686}
   m_Layer: 0
-  m_Name: Main Menu Input Manager
+  m_Name: Main Menu UI Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuInputManager : MonoBehaviour
+public class MainMenuUIManager : MonoBehaviour
 {
     [SerializeField] private string gameSceneName;
     [SerializeField] private string viewHighScoresSceneName;
