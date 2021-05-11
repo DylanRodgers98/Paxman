@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainLevelScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/LeaderboardScene.unity
+    guid: f54b807fd4d0a69408608ace18040746
+  - enabled: 1
+    path: Assets/Scenes/ViewReplaysScene.unity
+    guid: 5b6b4a0bc5d45214daca6ca06be0a8af
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c511fabed84019d43b8465320bdeab31,
       type: 2}
