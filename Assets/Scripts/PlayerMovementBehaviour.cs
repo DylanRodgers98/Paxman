@@ -2,12 +2,31 @@
 
 public class PlayerMovementBehaviour : MovementBehaviour
 {
-    protected void Start()
+    protected override void OnEnable()
     {
-        SetDirection(Vector2.left);
+        base.OnEnable();
+        GameManager.OnLevelStart += SetStartDirection;
+        GameManager.OnLevelReset += SetStartDirection;
     }
 
+    protected override void OnDisable()
+    {
+        base.OnEnable();
+        GameManager.OnLevelStart -= SetStartDirection;
+        GameManager.OnLevelReset -= SetStartDirection;
+    }
+
+    private void SetStartDirection() => SetDirectionInternal(Vector2.left);
+
     public override void SetDirection(Vector2 movementDirection)
+    {
+        if (IsMovementEnabled)
+        {
+            SetDirectionInternal(movementDirection);
+        }
+    }
+
+    private void SetDirectionInternal(Vector2 movementDirection)
     {
         base.SetDirection(movementDirection);
         SetScale();

@@ -691,7 +691,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
 --- !u!1 &1395759650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1006,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
 --- !u!1 &1668494123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,12 +1036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e11a135b2bb89d458cbf6b1528b08fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 2014311341}
-  ghostGameObjects:
-  - {fileID: 795073733}
-  - {fileID: 287989723}
-  - {fileID: 1395759650}
-  - {fileID: 1586290120}
   startCountdown: 5
 --- !u!4 &1668494125
 Transform:
@@ -1103,7 +1097,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
 --- !u!1 &2014311339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1110,7 @@ GameObject:
   - component: {fileID: 2014311340}
   - component: {fileID: 2014311343}
   - component: {fileID: 2014311344}
-  - component: {fileID: 1162230496648963261}
+  - component: {fileID: 2014311346}
   - component: {fileID: 2014311345}
   - component: {fileID: 2014311342}
   - component: {fileID: 2846247389828747330}
@@ -1253,6 +1247,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2014311346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014311339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39e3176c69c5d2488aad2f2cb317076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialLives: 3
 --- !u!4 &2088720478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2028360293639377711, guid: 38e5a3167d403ef4f8dc3fd7a39d8837,
@@ -1305,7 +1312,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
 --- !u!114 &770802211563667790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,20 +1327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scatterLocation: {x: -6.77, y: -7.926}
   playerTransform: {fileID: 2014311341}
---- !u!114 &1162230496648963261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014311339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d6c01fbaee3564aaae47f74098ad68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialLives: 3
-  gameResetTime: 5
 --- !u!58 &1882811166397051511
 CircleCollider2D:
   m_ObjectHideFlags: 0

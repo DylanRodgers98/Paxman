@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GhostManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] ghostGameObjects;
     [SerializeField] private float frightenedTime = 6.0f;
     [SerializeField] private float chaseTime = 20.0f;
     [SerializeField] private float earlyScatterTime = 7.0f;
@@ -15,7 +14,6 @@ public class GhostManager : MonoBehaviour
     [SerializeField] private Transform respawnJunctionTransform;
 
     public static event Action<GhostMode> OnGhostModeChanged;
-    private Tuple<GameObject, Vector2>[] _ghostInitialPositions;
     private GhostMode _preFrightenedMode;
     private int _phaseNumber = 1;
     private float _phaseTimer;
@@ -40,30 +38,20 @@ public class GhostManager : MonoBehaviour
         ghostBehaviour.GhostMode = _phaseMode;
     }
 
-    public void ResetGhosts()
-    {
-        _phaseNumber = 1;
-        _phaseTimer = 0;
-
-        foreach ((GameObject ghostTransform, Vector2 ghostInitialPosition) in _ghostInitialPositions)
-        {
-            ghostTransform.SetActive(true);
-            ghostTransform.transform.position = ghostInitialPosition;
-        }
-
-        SetPhaseModeToScatter();
-    }
-
     private void OnEnable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten += FrightenGhosts;
         GhostBehaviour.OnGhostEaten += IncreaseScoreOnEaten;
+        GameManager.OnLevelStart += InitialisePhaseTimer;
+        GameManager.OnLevelReset += DisablePhaseTimer;
     }
 
     private void OnDisable()
     {
         PowerPelletBehaviour.OnPowerPelletEaten -= FrightenGhosts;
         GhostBehaviour.OnGhostEaten -= IncreaseScoreOnEaten;
+        GameManager.OnLevelStart -= InitialisePhaseTimer;
+        GameManager.OnLevelReset -= DisablePhaseTimer;
     }
 
     private void FrightenGhosts()
@@ -89,27 +77,21 @@ public class GhostManager : MonoBehaviour
         ScoreOnEaten = previousScore * scoreOnEatenIncreaseFactor;
     }
 
-    private void Start()
+    private void InitialisePhaseTimer()
     {
-        if (ghostGameObjects == null || ghostGameObjects.Length == 0)
-        {
-            ghostGameObjects = GameObject.FindGameObjectsWithTag("Ghost");
-        }
-
-        _ghostInitialPositions = new Tuple<GameObject, Vector2>[ghostGameObjects.Length];
-        for (int i = 0; i < ghostGameObjects.Length; i++)
-        {
-            GameObject ghostGameObject = ghostGameObjects[i];
-            Vector2 ghostInitialPosition = ghostGameObject.transform.position;
-            _ghostInitialPositions[i] = Tuple.Create(ghostGameObject, ghostInitialPosition);
-        }
-
-        SetPhaseModeToScatter();
+        _phaseNumber = 1;
+        _phaseTimer = 0;
+        SetPhaseMode(GhostMode.Scatter);
     }
 
-    private void SetPhaseModeToScatter()
+    private void DisablePhaseTimer()
     {
-        _phaseMode = GhostMode.Scatter;
+        SetPhaseMode(GhostMode.Disabled);
+    }
+
+    private void SetPhaseMode(GhostMode phaseMode)
+    {
+        _phaseMode = phaseMode;
         OnGhostModeChanged?.Invoke(_phaseMode);
     }
 

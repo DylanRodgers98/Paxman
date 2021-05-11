@@ -3,12 +3,12 @@
 public class MovementBehaviour : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
-    private bool _isMovementEnabled;
     private float _distanceToMove;
     private float _x;
     private float _y;
 
     protected Transform PlayerTransform { get; private set; }
+    protected bool IsMovementEnabled { get; private set; }
     protected Vector2 Direction { get; private set; }
     protected Vector2 LastKnownPosition { get; private set; }
 
@@ -22,21 +22,25 @@ public class MovementBehaviour : MonoBehaviour
         PlayerTransform = transform;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        GameManager.OnGameStart += EnableMovement;
+        GameManager.OnLevelStart += EnableMovement;
+        GameManager.OnLevelReset += DisableMovement;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        GameManager.OnGameStart -= EnableMovement;
+        GameManager.OnLevelStart -= EnableMovement;
+        GameManager.OnLevelReset -= DisableMovement;
     }
 
-    private void EnableMovement() => _isMovementEnabled = true;
+    private void EnableMovement() => IsMovementEnabled = true;
+
+    private void DisableMovement() => IsMovementEnabled = false;
 
     protected void Update()
     {
-        if (!_isMovementEnabled || Direction == Vector2.zero) return;
+        if (!IsMovementEnabled || Direction == Vector2.zero) return;
         LastKnownPosition = PlayerTransform.position;
         _distanceToMove = movementSpeed * Time.deltaTime;
         _x = LastKnownPosition.x + Direction.x * _distanceToMove;

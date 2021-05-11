@@ -9,10 +9,9 @@ public class PlayerMovementByReplay : PlayerMovementBehaviour
     private float _actionTime;
     private Vector2 _actionDirection;
     
-    private new void Start()
+    private void Start()
     {
         GetNextAction();
-        base.Start();
     }
 
     private new void Update()

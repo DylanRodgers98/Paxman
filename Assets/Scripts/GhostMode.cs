@@ -2,5 +2,6 @@
 {
     Chase,
     Scatter,
-    Frightened
+    Frightened,
+    Disabled
 }
