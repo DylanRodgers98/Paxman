@@ -9,11 +9,11 @@ public class MovementBehaviour : MonoBehaviour
     private float _x;
     private float _y;
 
-    protected Vector2 MovementDirection { get; private set; }
+    protected Vector2 Direction { get; private set; }
 
-    protected virtual void SetMovementDirection(Vector2 movementDirection)
+    public virtual void SetDirection(Vector2 direction)
     {
-        MovementDirection = movementDirection;
+        Direction = direction;
     }
 
     private void Awake()
@@ -23,11 +23,11 @@ public class MovementBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (MovementDirection == Vector2.zero) return;
+        if (Direction == Vector2.zero) return;
         _lastKnownPosition = _transform.position;
         _distanceToMove = movementSpeed * Time.deltaTime;
-        _x = _lastKnownPosition.x + MovementDirection.x * _distanceToMove;
-        _y = _lastKnownPosition.y + MovementDirection.y * _distanceToMove;
+        _x = _lastKnownPosition.x + Direction.x * _distanceToMove;
+        _y = _lastKnownPosition.y + Direction.y * _distanceToMove;
         _transform.position = new Vector2(_x, _y);
     }
 }

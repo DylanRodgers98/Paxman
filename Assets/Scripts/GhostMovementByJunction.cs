@@ -2,8 +2,8 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(GhostBehaviour))]
-public class GhostMovementBehaviour : MovementBehaviour
+[RequireComponent(typeof(MovementBehaviour), typeof(GhostBehaviour))]
+public class GhostMovementByJunction : MonoBehaviour
 {
     private static readonly Vector2[] UpAndLeft = {Vector2.up, Vector2.left};
     private static readonly Vector2[] UpAndRight = {Vector2.up, Vector2.right};
@@ -12,6 +12,7 @@ public class GhostMovementBehaviour : MovementBehaviour
     
     [SerializeField] private Vector2 scatterLocation;
     [SerializeField] private Transform playerTransform;
+    private MovementBehaviour _movementBehaviour;
     private GhostBehaviour _ghostBehaviour;
     private Vector2 _currentPosition;
     private Vector2[] _desiredDirections;
@@ -20,6 +21,7 @@ public class GhostMovementBehaviour : MovementBehaviour
 
     private void Start()
     {
+        _movementBehaviour = GetComponent<MovementBehaviour>();
         _ghostBehaviour = GetComponent<GhostBehaviour>();
         if (!playerTransform)
         {
@@ -32,28 +34,27 @@ public class GhostMovementBehaviour : MovementBehaviour
         if (other.CompareTag("Junction"))
         {
             _availableDirections = other.GetComponent<JunctionBehaviour>().AvailableDirections;
-            transform.position = other.transform.position;
-            SetMovementDirection();
+            SetDirection();
         }
     }
 
-    private void SetMovementDirection()
+    private void SetDirection()
     {
         switch (_ghostBehaviour.GhostMode)
         {
             case GhostMode.Scatter:
-                SetMovementDirection(scatterLocation);
+                SetDirection(scatterLocation);
                 break;
             case GhostMode.Chase:
-                SetMovementDirection(playerTransform.position);
+                SetDirection(playerTransform.position);
                 break;
             case GhostMode.Frightened:
-                SetRandomMovementDirection();
+                SetRandomDirection();
                 break;
         }
     }
     
-    protected override void SetMovementDirection(Vector2 targetLocation)
+    private void SetDirection(Vector2 targetLocation)
     {
         _currentPosition = transform.position;
 
@@ -78,18 +79,21 @@ public class GhostMovementBehaviour : MovementBehaviour
 
         if (_directionsToChooseFrom.Length > 0)
         {
-            base.SetMovementDirection(_directionsToChooseFrom[
-                _directionsToChooseFrom.Length == 1 ? 0 : Random.Range(0, _directionsToChooseFrom.Length)]);
+            _movementBehaviour.SetDirection(ChooseRandomVector(_directionsToChooseFrom));
         }
         else
         {
-            SetRandomMovementDirection();
+            SetRandomDirection();
         }
     }
 
-    private void SetRandomMovementDirection()
+    private void SetRandomDirection()
     {
-        base.SetMovementDirection(_availableDirections[
-            _availableDirections.Length == 1 ? 0 : Random.Range(0, _availableDirections.Length)]);
+        _movementBehaviour.SetDirection(ChooseRandomVector(_availableDirections));
+    }
+
+    private static Vector2 ChooseRandomVector(Vector2[] vectors)
+    {
+        return vectors[vectors.Length == 1 ? 0 : Random.Range(0, vectors.Length)];
     }
 }

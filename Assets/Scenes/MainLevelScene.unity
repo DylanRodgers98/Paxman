@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 287989728}
   - component: {fileID: 287989727}
   - component: {fileID: 3911266959086409527}
+  - component: {fileID: 287989725}
   - component: {fileID: 287989724}
   - component: {fileID: 1882811166397051511}
   m_Layer: 11
@@ -219,6 +220,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &287989725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287989723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d6b9afbc8259e4493640d9196b6198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
 --- !u!114 &287989727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +406,7 @@ GameObject:
   - component: {fileID: 795073738}
   - component: {fileID: 795073737}
   - component: {fileID: 6000062688799083036}
+  - component: {fileID: 795073735}
   - component: {fileID: 795073734}
   - component: {fileID: 8748980697067571398}
   m_Layer: 11
@@ -422,6 +437,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &795073735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795073733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d6b9afbc8259e4493640d9196b6198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
 --- !u!114 &795073737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +691,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.02
 --- !u!1 &1395759650
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +704,7 @@ GameObject:
   - component: {fileID: 1395759655}
   - component: {fileID: 1395759654}
   - component: {fileID: 3814017049362142146}
+  - component: {fileID: 1395759652}
   - component: {fileID: 1395759651}
   - component: {fileID: 2835587635367345811}
   m_Layer: 11
@@ -706,6 +735,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1395759652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395759650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d6b9afbc8259e4493640d9196b6198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
 --- !u!114 &1395759654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,6 +838,7 @@ GameObject:
   - component: {fileID: 1586290125}
   - component: {fileID: 1586290124}
   - component: {fileID: 770802211563667790}
+  - component: {fileID: 1586290122}
   - component: {fileID: 1586290121}
   - component: {fileID: 8824956639372380432}
   m_Layer: 11
@@ -826,6 +869,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1586290122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586290120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d6b9afbc8259e4493640d9196b6198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
 --- !u!114 &1586290124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,7 +1006,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.02
 --- !u!1 &1677556546
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1053,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.02
 --- !u!1 &2014311339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1065,7 @@ GameObject:
   - component: {fileID: 2014311341}
   - component: {fileID: 2014311340}
   - component: {fileID: 2014311343}
+  - component: {fileID: 2014311344}
   - component: {fileID: 1162230496648963261}
   - component: {fileID: 2014311345}
   - component: {fileID: 2014311342}
@@ -1112,6 +1169,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e387b1ab2be8349bdef59558d0b3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2014311344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014311339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884a9de81db08ea44b165f48cab76863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   movementSpeed: 3
 --- !u!50 &2014311345
 Rigidbody2D:
@@ -1186,7 +1255,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.02
 --- !u!114 &770802211563667790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,7 +1268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
   scatterLocation: {x: -6.77, y: -7.926}
   playerTransform: {fileID: 2014311341}
 --- !u!114 &1162230496648963261
@@ -1700,7 +1768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
   scatterLocation: {x: 6.78, y: -7.926}
   playerTransform: {fileID: 2014311341}
 --- !u!114 &3911266959086409527
@@ -1715,7 +1782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
   scatterLocation: {x: -6.77, y: 7.25}
   playerTransform: {fileID: 2014311341}
 --- !u!114 &6000062688799083036
@@ -1730,7 +1796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906100cd94fbe8499a68fe116f9d643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
   scatterLocation: {x: 6.78, y: 7.25}
   playerTransform: {fileID: 2014311341}
 --- !u!58 &8748980697067571398

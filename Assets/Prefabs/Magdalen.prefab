@@ -46,7 +46,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.02
 --- !u!1 &4225604157857610262
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 4225604157857610264}
   - component: {fileID: 4225604157857610265}
   - component: {fileID: 4225604157857610266}
+  - component: {fileID: 6899880684374833766}
   - component: {fileID: 4225604157857610261}
   - component: {fileID: 4886057053909528085}
   m_Layer: 11
@@ -144,8 +145,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a27ff06047a954aba32046c22f932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnLocation: {x: 0, y: 0.204}
   initialGhostMode: 1
+--- !u!114 &6899880684374833766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225604157857610262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d6b9afbc8259e4493640d9196b6198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 3
 --- !u!50 &4225604157857610261
 Rigidbody2D:
   serializedVersion: 4

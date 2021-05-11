@@ -48,7 +48,7 @@ public class PlayerLives : MonoBehaviour
     private IEnumerator ResetLevel()
     {
         transform.position = _playerInitialPosition;
-        _playerMovementBehaviour.Start();
+        _playerMovementBehaviour.SetDirection(Vector2.left);
         _ghostManager.ResetGhosts();
 
         Time.timeScale = 0;
