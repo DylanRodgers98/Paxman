@@ -3,6 +3,7 @@
 public class MovementBehaviour : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
+    private bool _isMovementEnabled;
     private float _distanceToMove;
     private float _x;
     private float _y;
@@ -21,9 +22,21 @@ public class MovementBehaviour : MonoBehaviour
         PlayerTransform = transform;
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnGameStart += EnableMovement;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameStart -= EnableMovement;
+    }
+
+    private void EnableMovement() => _isMovementEnabled = true;
+
     protected void Update()
     {
-        if (Direction == Vector2.zero) return;
+        if (!_isMovementEnabled || Direction == Vector2.zero) return;
         LastKnownPosition = PlayerTransform.position;
         _distanceToMove = movementSpeed * Time.deltaTime;
         _x = LastKnownPosition.x + Direction.x * _distanceToMove;
