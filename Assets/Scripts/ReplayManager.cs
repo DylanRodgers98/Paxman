@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -9,11 +10,24 @@ public class ReplayManager : MonoBehaviour
     [SerializeField] private GameObject[] ghosts;
     private IDictionary<string, MovementBehaviour> _movementBehaviours;
     private Queue<HistoricalDirection> _historicalDirections;
+    private bool _isReplayEnabled;
     private HistoricalDirection _currentHistoricalDirection;
     private Vector2 _currentDirection;
 
-    public string ReplayFilePath { private get; set; }
-    
+    [SerializeField] public string ReplayFilePath;
+
+    private void OnEnable()
+    {
+        LevelManager.OnLevelStart += EnableReplay;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnLevelStart -= EnableReplay;
+    }
+
+    private void EnableReplay() => _isReplayEnabled = true;
+
     private void Start()
     {
         if (player == null)
@@ -43,12 +57,14 @@ public class ReplayManager : MonoBehaviour
         }
         
         GetNextHistoricalDirection();
+        _isReplayEnabled = false;
     }
 
     private void Update()
     {
-        while (_currentHistoricalDirection?.Time >= Time.timeSinceLevelLoad)
+        while (_isReplayEnabled && _currentHistoricalDirection?.Time <= Time.timeSinceLevelLoad)
         {
+            Debug.Log($"_currentHistoricalDirection.Time: {_currentHistoricalDirection?.Time} | Time.timeSinceLevelLoad: {Time.timeSinceLevelLoad}");
             _currentDirection = new Vector2(_currentHistoricalDirection.X, _currentHistoricalDirection.Y);
             _movementBehaviours[_currentHistoricalDirection.Actor].SetDirection(_currentDirection);
             GetNextHistoricalDirection();
