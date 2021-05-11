@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,8 @@ public class GhostMovementByJunction : MonoBehaviour
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
+
+    // private void OnTriggerEnter2D(Collider2D other) => OnTriggerEnterOrStay(other);
 
     private void OnTriggerStay2D(Collider2D other)
     {
