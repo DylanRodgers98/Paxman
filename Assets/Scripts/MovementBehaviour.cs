@@ -8,6 +8,7 @@ public class MovementBehaviour : MonoBehaviour
     private float _distanceToMove;
     private float _x;
     private float _y;
+    private float _currentTime;
     
     public IList<Tuple<float, Vector2>> DirectionHistory { get; private set; }
     protected Transform PlayerTransform { get; private set; }
@@ -18,11 +19,12 @@ public class MovementBehaviour : MonoBehaviour
     public virtual void SetDirection(Vector2 direction)
     {
         Direction = direction;
-        DirectionHistory.Add(Tuple.Create(Time.timeSinceLevelLoad, direction));
+        DirectionHistory.Add(Tuple.Create(_currentTime, direction));
     }
 
     private void Awake()
     {
+        _currentTime = 0.0f;
         DirectionHistory = new List<Tuple<float, Vector2>>();
         PlayerTransform = transform;
     }
@@ -47,11 +49,14 @@ public class MovementBehaviour : MonoBehaviour
 
     protected void Update()
     {
-        if (!IsMovementEnabled || Direction == Vector2.zero) return;
-        LastKnownPosition = PlayerTransform.position;
-        _distanceToMove = movementSpeed * Time.deltaTime;
-        _x = LastKnownPosition.x + Direction.x * _distanceToMove;
-        _y = LastKnownPosition.y + Direction.y * _distanceToMove;
-        PlayerTransform.position = new Vector2(_x, _y);
+        _currentTime += Time.deltaTime;
+        if (IsMovementEnabled && Direction != Vector2.zero)
+        {
+            LastKnownPosition = PlayerTransform.position;
+            _distanceToMove = movementSpeed * Time.deltaTime;
+            _x = LastKnownPosition.x + Direction.x * _distanceToMove;
+            _y = LastKnownPosition.y + Direction.y * _distanceToMove;
+            PlayerTransform.position = new Vector2(_x, _y);
+        }
     }
 }

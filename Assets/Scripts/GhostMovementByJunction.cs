@@ -51,7 +51,13 @@ public class GhostMovementByJunction : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) => _isDirectionChosen = false;
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Junction"))
+        {
+            _isDirectionChosen = false;
+        }
+    }
 
     private void SetDirection()
     {
