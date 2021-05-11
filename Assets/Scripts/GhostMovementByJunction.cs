@@ -18,6 +18,19 @@ public class GhostMovementByJunction : MonoBehaviour
     private Vector2[] _desiredDirections;
     private Vector2[] _availableDirections;
     private Vector2[] _directionsToChooseFrom;
+    private bool _isDirectionChosen;
+
+    private void OnEnable()
+    {
+        GameManager.OnLevelReset += ResetIsDirectionChosen;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnLevelReset -= ResetIsDirectionChosen;
+    }
+
+    private void ResetIsDirectionChosen() => _isDirectionChosen = false;
 
     private void Start()
     {
@@ -29,14 +42,16 @@ public class GhostMovementByJunction : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Junction"))
+        if (other.CompareTag("Junction") && !_isDirectionChosen)
         {
             _availableDirections = other.GetComponent<JunctionBehaviour>().AvailableDirections;
             SetDirection();
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other) => _isDirectionChosen = false;
 
     private void SetDirection()
     {
@@ -85,6 +100,8 @@ public class GhostMovementByJunction : MonoBehaviour
         {
             SetRandomDirection();
         }
+
+        _isDirectionChosen = true;
     }
 
     private void SetRandomDirection()
