@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class MovementBehaviour : MonoBehaviour
 {
@@ -6,7 +8,8 @@ public class MovementBehaviour : MonoBehaviour
     private float _distanceToMove;
     private float _x;
     private float _y;
-
+    
+    public IList<Tuple<float, Vector2>> DirectionHistory { get; private set; }
     protected Transform PlayerTransform { get; private set; }
     protected bool IsMovementEnabled { get; private set; }
     protected Vector2 Direction { get; private set; }
@@ -15,10 +18,12 @@ public class MovementBehaviour : MonoBehaviour
     public virtual void SetDirection(Vector2 direction)
     {
         Direction = direction;
+        DirectionHistory.Add(Tuple.Create(Time.timeSinceLevelLoad, direction));
     }
 
     private void Awake()
     {
+        DirectionHistory = new List<Tuple<float, Vector2>>();
         PlayerTransform = transform;
     }
 
