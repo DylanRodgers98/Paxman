@@ -5,10 +5,15 @@ using UnityEngine;
 public class DotBehaviour : MonoBehaviour
 {
     public static event Action<int> OnDotEaten;
+    private static int _numberOfDots;
     [SerializeField] private int score;
-    private PacDotManager _pacDotManager;
-    
-    protected virtual void OnTriggerEnter2D(Collider2D other)
+
+    private void Start()
+    {
+        IncrementNumberOfDots();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // check isTrigger because player character has two colliders:
         // one that checks for collisions against walls (non-trigger),
@@ -20,12 +25,21 @@ public class DotBehaviour : MonoBehaviour
     {
         OnDotEaten?.Invoke(score);
         gameObject.SetActive(false);
-        _pacDotManager.DecrementNumberOfDots();
+        DecrementNumberOfDots();
     }
 
-    private void Start()
+    private static void IncrementNumberOfDots()
     {
-        _pacDotManager = FindObjectOfType<PacDotManager>();
-        _pacDotManager.IncrementNumberOfDots();
+        _numberOfDots++;
+    }
+
+    private static void DecrementNumberOfDots()
+    {
+        if (--_numberOfDots == 0)
+        {
+            // TODO: implement something for when player eats all dots
+            Time.timeScale = 0;
+            Debug.Log("You ate all the dots!");
+        }
     }
 }
