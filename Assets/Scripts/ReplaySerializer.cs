@@ -16,7 +16,8 @@ public class ReplaySerializer : MonoBehaviour
     private string _replayFileDirectory;
     private GameObject _currentGhost;
     private MovementBehaviour _currentGhostMovementBehaviour;
-    private List<HistoricalDirection> _directionHistory;
+    private List<HistoricalDirection> _directionHistoryList;
+    private Queue<HistoricalDirection> _directionHistoryQueue;
     private string _filePath;
     
     private void Awake()
@@ -58,49 +59,28 @@ public class ReplaySerializer : MonoBehaviour
 
     private void SerializeReplay()
     {
-        _directionHistory = new List<HistoricalDirection>();
+        _directionHistoryList = new List<HistoricalDirection>();
         foreach ((float time, Vector2 direction) in _playerMovementBehaviour.DirectionHistory)
         {
-            _directionHistory.Add(new HistoricalDirection(player.name, time, direction.x, direction.y));
+            _directionHistoryList.Add(new HistoricalDirection(player.name, time, direction.x, direction.y));
         }
         
         foreach ((GameObject ghost, MovementBehaviour ghostMovementBehaviour) in _ghostMovementBehaviours)
         {
             foreach ((float time, Vector2 direction) in ghostMovementBehaviour.DirectionHistory)
             {
-                _directionHistory.Add(new HistoricalDirection(ghost.name, time, direction.x, direction.y));
+                _directionHistoryList.Add(new HistoricalDirection(ghost.name, time, direction.x, direction.y));
             }
         }
         
-        _directionHistory.Sort();
+        _directionHistoryList.Sort();
+        _directionHistoryQueue = new Queue<HistoricalDirection>(_directionHistoryList);
 
         _filePath = $"{_replayFileDirectory}/{DateTimeOffset.Now.ToUnixTimeMilliseconds()}{replayFileExtension}";
         using (FileStream fs = File.Create(_filePath))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(fs, _directionHistory);
-        }
-    }
-
-    [Serializable]
-    private class HistoricalDirection : IComparable<HistoricalDirection>
-    {
-        public string Actor { get; set; }
-        public float Time { get; set; }
-        public float X { get; set; }
-        public float Y { get; set; }
-
-        public HistoricalDirection(string actor, float time, float x, float y)
-        {
-            Actor = actor;
-            Time = time;
-            X = x;
-            Y = y;
-        }
-
-        public int CompareTo(HistoricalDirection other)
-        {
-            return Time.CompareTo(other.Time);
+            binaryFormatter.Serialize(fs, _directionHistoryQueue);
         }
     }
 }
