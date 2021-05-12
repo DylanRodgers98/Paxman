@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BaseLevelUIManager : MonoBehaviour
+public class BaseLevelUIManager : BaseUIManager
 {
     private const string ScoreTextPrefix = "Score: ";
     private const string LivesTextPrefix = "Lives: ";
@@ -17,7 +16,7 @@ public class BaseLevelUIManager : MonoBehaviour
     
     public void OnMainMenuReturnButtonClick()
     {
-        SceneManager.LoadScene(mainMenuSceneName);
+        FadeAndLoadScene(mainMenuSceneName);
     }
 
     protected virtual void Start()
@@ -25,8 +24,9 @@ public class BaseLevelUIManager : MonoBehaviour
         deathElementsParent.SetActive(false);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         PlayerDataHolder.OnScoreChanged += UpdateScoreText;
         PlayerDataHolder.OnLivesChanged += UpdateLivesText;
         PlayerDataHolder.OnFinalScore += ShowDeathText;

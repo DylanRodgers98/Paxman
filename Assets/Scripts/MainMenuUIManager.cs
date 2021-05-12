@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuUIManager : MonoBehaviour
+public class MainMenuUIManager : BaseUIManager
 {
     [SerializeField] private string gameSceneName;
     [SerializeField] private string viewHighScoresSceneName;
@@ -20,17 +19,17 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void OnStartButtonClick()
     {
-        SceneManager.LoadScene(gameSceneName);
+        FadeAndLoadScene(gameSceneName);
     }
 
     public void OnViewReplayButtonClick()
     {
-        SceneManager.LoadScene(viewReplaySceneName);
+        FadeAndLoadScene(viewReplaySceneName);
     }
 
     public void OnViewLeaderboardButtonClick()
     {
-        SceneManager.LoadScene(viewHighScoresSceneName);
+        FadeAndLoadScene(viewHighScoresSceneName);
     }
 
     public void OnQuitButtonClick()

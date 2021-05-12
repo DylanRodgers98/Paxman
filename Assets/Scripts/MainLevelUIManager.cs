@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainLevelUIManager : BaseLevelUIManager
@@ -42,6 +41,6 @@ public class MainLevelUIManager : BaseLevelUIManager
             binaryFormatter.Serialize(fs, _highScores);
         }
 
-        SceneManager.LoadScene(mainMenuSceneName);
+        FadeAndLoadScene(mainMenuSceneName);
     }
 }

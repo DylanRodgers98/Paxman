@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class HighScoresUIManager : MonoBehaviour
+public class HighScoresUIManager : BaseUIManager
 {
     [SerializeField] private string mainMenuSceneName;
 
     public void OnBackButtonClick()
     {
-        SceneManager.LoadScene(mainMenuSceneName);
+        FadeAndLoadScene(mainMenuSceneName);
     }
 }
