@@ -5,8 +5,26 @@ using UnityEngine;
 public class DotBehaviour : MonoBehaviour
 {
     public static event Action<int> OnDotEaten;
+    public static event Action OnAllDotsEaten;
     private static int _numberOfDots;
+    
     [SerializeField] private int score;
+
+    private void OnEnable()
+    {
+        OnAllDotsEaten += ReactivateDot;
+    }
+
+    private void OnDisable()
+    {
+        OnAllDotsEaten -= ReactivateDot;
+    }
+
+    private void ReactivateDot()
+    {
+        gameObject.SetActive(true);
+        IncrementNumberOfDots();
+    }
 
     private void Start()
     {
@@ -37,9 +55,7 @@ public class DotBehaviour : MonoBehaviour
     {
         if (--_numberOfDots == 0)
         {
-            // TODO: implement something for when player eats all dots
-            Time.timeScale = 0;
-            Debug.Log("You ate all the dots!");
+            OnAllDotsEaten?.Invoke();
         }
     }
 }
