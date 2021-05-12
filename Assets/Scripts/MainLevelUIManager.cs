@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainLevelUIManager : GameUIManager
+public class MainLevelUIManager : BaseLevelUIManager
 {
     [SerializeField] private string highScoresFileName = "HighScores.dat";
     [SerializeField] private InputField nameInputField;

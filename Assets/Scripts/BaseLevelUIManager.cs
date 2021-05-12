@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameUIManager : MonoBehaviour
+public class BaseLevelUIManager : MonoBehaviour
 {
     private const string ScoreTextPrefix = "Score: ";
     private const string LivesTextPrefix = "Lives: ";
@@ -13,6 +14,11 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private Text livesText;
     [SerializeField] private Text deathText;
     protected int Score;
+    
+    public void OnMainMenuReturnButtonClick()
+    {
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
 
     protected virtual void Start()
     {
