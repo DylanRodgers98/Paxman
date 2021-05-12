@@ -12,13 +12,13 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerDataHolder.OnPlayerLostLife += ResetLevel;
-        DotBehaviour.OnAllDotsEaten += ResetLevel;
+        PacDotManager.OnAllDotsEaten += ResetLevel;
     }
 
     private void OnDisable()
     {
         PlayerDataHolder.OnPlayerLostLife -= ResetLevel;
-        DotBehaviour.OnAllDotsEaten += ResetLevel;
+        PacDotManager.OnAllDotsEaten += ResetLevel;
     }
 
     private void ResetLevel()

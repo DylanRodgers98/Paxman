@@ -5,30 +5,14 @@ using UnityEngine;
 public class DotBehaviour : MonoBehaviour
 {
     public static event Action<int> OnDotEaten;
-    public static event Action OnAllDotsEaten;
-    private static int _numberOfDots;
     
     [SerializeField] private int score;
-
-    private void OnEnable()
-    {
-        OnAllDotsEaten += ReactivateDot;
-    }
-
-    private void OnDisable()
-    {
-        OnAllDotsEaten -= ReactivateDot;
-    }
-
-    private void ReactivateDot()
-    {
-        gameObject.SetActive(true);
-        IncrementNumberOfDots();
-    }
+    private PacDotManager _pacDotManager;
 
     private void Start()
     {
-        IncrementNumberOfDots();
+        _pacDotManager = FindObjectOfType<PacDotManager>();
+        _pacDotManager.AddDot(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -42,20 +26,6 @@ public class DotBehaviour : MonoBehaviour
     protected virtual void Eat()
     {
         OnDotEaten?.Invoke(score);
-        gameObject.SetActive(false);
-        DecrementNumberOfDots();
-    }
-
-    private static void IncrementNumberOfDots()
-    {
-        _numberOfDots++;
-    }
-
-    private static void DecrementNumberOfDots()
-    {
-        if (--_numberOfDots == 0)
-        {
-            OnAllDotsEaten?.Invoke();
-        }
+        _pacDotManager.DeactivateDot(gameObject);
     }
 }
