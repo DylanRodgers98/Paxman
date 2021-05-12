@@ -1,31 +1,36 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
     private const string ScoreTextPrefix = "Score: ";
     private const string LivesTextPrefix = "Lives: ";
+    private const string DeathTextPrefix = "YOU DIED\nFinal Score: ";
     
     [SerializeField] protected string mainMenuSceneName;
+    [SerializeField] protected GameObject deathElementsParent;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
-    
-    public void ReturnToMainMenuOnClick()
+    [SerializeField] private Text deathText;
+    protected int Score;
+
+    protected virtual void Start()
     {
-        SceneManager.LoadScene(mainMenuSceneName);
+        deathElementsParent.SetActive(false);
     }
-    
-    protected virtual void OnEnable()
+
+    private void OnEnable()
     {
         PlayerDataHolder.OnScoreChanged += UpdateScoreText;
         PlayerDataHolder.OnLivesChanged += UpdateLivesText;
+        PlayerDataHolder.OnFinalScore += ShowDeathText;
     }
 
-    protected virtual void OnDisable()
+    private void OnDisable()
     {
         PlayerDataHolder.OnScoreChanged -= UpdateScoreText;
         PlayerDataHolder.OnLivesChanged -= UpdateLivesText;
+        PlayerDataHolder.OnFinalScore -= ShowDeathText;
     }
     
     private void UpdateScoreText(int score)
@@ -36,5 +41,12 @@ public class GameUIManager : MonoBehaviour
     private void UpdateLivesText(int lives)
     {
         livesText.text = LivesTextPrefix + lives;
+    }
+
+    private void ShowDeathText(int score)
+    {
+        Score = score;
+        deathElementsParent.SetActive(true);
+        deathText.text = DeathTextPrefix + Score;
     }
 }

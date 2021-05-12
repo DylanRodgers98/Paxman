@@ -8,37 +8,15 @@ using UnityEngine.UI;
 
 public class MainLevelUIManager : GameUIManager
 {
-    private const string DeathTextPrefix = "YOU DIED\nFinal Score: ";
-
     [SerializeField] private string highScoresFileName = "HighScores.dat";
-    [SerializeField] private GameObject deathElementsParent;
-    [SerializeField] private Text deathText;
     [SerializeField] private InputField nameInputField;
-    private int _score;
     private string _highScoresFilePath;
     private IList<Tuple<string, int>> _highScores;
 
-    protected override void OnEnable()
+    protected override void Start()
     {
-        PlayerDataHolder.OnFinalScore += ShowDeathText;
-    }
-
-    protected override void OnDisable()
-    {
-        PlayerDataHolder.OnFinalScore -= ShowDeathText;
-    }
-
-    private void Start()
-    {
-        deathElementsParent.SetActive(false);
+        base.Start();
         _highScoresFilePath = $"{Application.persistentDataPath}/{highScoresFileName}";
-    }
-
-    private void ShowDeathText(int score)
-    {
-        _score = score;
-        deathElementsParent.SetActive(true);
-        deathText.text = DeathTextPrefix + _score;
     }
 
     public void OnSubmitButtonClick()
@@ -57,7 +35,7 @@ public class MainLevelUIManager : GameUIManager
             _highScores = new List<Tuple<string, int>>();
         }
 
-        _highScores.Add(Tuple.Create(nameInputField.text, _score));
+        _highScores.Add(Tuple.Create(nameInputField.text, Score));
         
         using (FileStream fs = File.OpenWrite(_highScoresFilePath))
         {
