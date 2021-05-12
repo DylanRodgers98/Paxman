@@ -6,17 +6,13 @@ using UnityEngine;
 
 public class ReplaySerializer : MonoBehaviour
 {
-    [SerializeField] private string replayFileDirectoryName = "replays";
-    [SerializeField] private string replayFileExtension = ".dat";
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] ghosts;
     private MovementBehaviour _playerMovementBehaviour;
     private Tuple<GameObject, MovementBehaviour>[] _ghostMovementBehaviours;
-    private string _replayFileDirectory;
     private GameObject _currentGhost;
     private MovementBehaviour _currentGhostMovementBehaviour;
     private Tuple<string, Queue<HistoricalDirection>>[] _directionHistory;
-    private string _filePath;
     
     private void Awake()
     {
@@ -42,9 +38,6 @@ public class ReplaySerializer : MonoBehaviour
         }
 
         _directionHistory = new Tuple<string, Queue<HistoricalDirection>>[ghosts.Length + 1];
-        
-        _replayFileDirectory = $"{Application.persistentDataPath}/{replayFileDirectoryName}";
-        Directory.CreateDirectory(_replayFileDirectory);
     }
 
     private void OnEnable()
@@ -78,8 +71,7 @@ public class ReplaySerializer : MonoBehaviour
             _directionHistory[i + 1] = Tuple.Create(ghost.name, ghostDirectionHistory);
         }
 
-        _filePath = $"{_replayFileDirectory}/{DateTimeOffset.Now.ToUnixTimeMilliseconds()}{replayFileExtension}";
-        using (FileStream fs = File.Create(_filePath))
+        using (FileStream fs = File.OpenWrite($"{Application.persistentDataPath}/{ReplayManager.ReplayFileName}"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             binaryFormatter.Serialize(fs, _directionHistory);

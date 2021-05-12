@@ -6,16 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainLevelUIManager : MonoBehaviour
+public class MainLevelUIManager : GameUIManager
 {
-    private const string ScoreTextPrefix = "Score: ";
-    private const string LivesTextPrefix = "Lives: ";
     private const string DeathTextPrefix = "YOU DIED\nFinal Score: ";
 
-    [SerializeField] private string mainMenuSceneName;
     [SerializeField] private string highScoresFileName = "HighScores.dat";
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
     [SerializeField] private GameObject deathElementsParent;
     [SerializeField] private Text deathText;
     [SerializeField] private InputField nameInputField;
@@ -23,17 +18,13 @@ public class MainLevelUIManager : MonoBehaviour
     private string _highScoresFilePath;
     private IList<Tuple<string, int>> _highScores;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        PlayerDataHolder.OnScoreChanged += UpdateScoreText;
-        PlayerDataHolder.OnLivesChanged += UpdateLivesText;
         PlayerDataHolder.OnFinalScore += ShowDeathText;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        PlayerDataHolder.OnScoreChanged -= UpdateScoreText;
-        PlayerDataHolder.OnLivesChanged -= UpdateLivesText;
         PlayerDataHolder.OnFinalScore -= ShowDeathText;
     }
 
@@ -41,16 +32,6 @@ public class MainLevelUIManager : MonoBehaviour
     {
         deathElementsParent.SetActive(false);
         _highScoresFilePath = $"{Application.persistentDataPath}/{highScoresFileName}";
-    }
-
-    private void UpdateScoreText(int score)
-    {
-        scoreText.text = ScoreTextPrefix + score;
-    }
-
-    private void UpdateLivesText(int lives)
-    {
-        livesText.text = LivesTextPrefix + lives;
     }
 
     private void ShowDeathText(int score)

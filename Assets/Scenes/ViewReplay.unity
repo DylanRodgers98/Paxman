@@ -671,7 +671,6 @@ MonoBehaviour:
   - {fileID: 4225604158056846640}
   - {fileID: 3525337045088815718}
   - {fileID: 1212642151477335460}
-  ReplayFilePath: C:\Users\dylan\AppData\LocalLow\DefaultCompany\CSC-384 Coursework\replays\1620768856693.dat
 --- !u!4 &598642374
 Transform:
   m_ObjectHideFlags: 0
@@ -1227,12 +1226,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2049971719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94c1f0215b579134fb477d1d0eb00d75, type: 3}
+  m_Script: {fileID: 11500000, guid: 52246814b5950fa478e32001918a6fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuSceneName: MainMenu
   scoreText: {fileID: 658430662}
   livesText: {fileID: 1215845251}
-  deathText: {fileID: 1820983651}
 --- !u!4 &2049971721
 Transform:
   m_ObjectHideFlags: 0

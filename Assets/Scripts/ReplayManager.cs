@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class ReplayManager : MonoBehaviour
 {
+    public const string ReplayFileName = "Replay.dat";
+    
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] ghosts;
     private IDictionary<string, MovementReplay> _actors;
     private Tuple<string, Queue<HistoricalDirection>>[] _deserializedReplayFile;
-
-    [SerializeField] public string ReplayFilePath;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class ReplayManager : MonoBehaviour
             _actors[ghost.name] = ghost.GetComponent<MovementReplay>();
         }
 
-        using (FileStream fs = File.OpenRead(ReplayFilePath))
+        using (FileStream fs = File.OpenRead($"{Application.persistentDataPath}/{ReplayFileName}"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             _deserializedReplayFile = (Tuple<string, Queue<HistoricalDirection>>[]) binaryFormatter.Deserialize(fs);
